@@ -1,0 +1,20 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        # Baked into the browser bundle, so changing it needs `docker compose up -d --build`.
+        NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY:-}
+    image: prototype-van-site:latest
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      # Server-only secret iCal address. Empty means the page shows sample bookings.
+      GOOGLE_CALENDAR_ICS_URL: ${GOOGLE_CALENDAR_ICS_URL:-}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy with Docker
+
+```
+cp .env.example .env      # fill in GOOGLE_CALENDAR_ICS_URL and NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+docker compose up -d --build
+```
+
+The site listens on port 3000 (change with `PORT=8080` in `.env`). `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` is baked into the
+browser bundle at build time, so after changing it run `docker compose up -d --build` again. `GOOGLE_CALENDAR_ICS_URL`
+is read at runtime; restart with `docker compose up -d` after changing it. Put a reverse proxy (Caddy, nginx) with HTTPS in front.
