@@ -5,6 +5,7 @@ import "./name.css"
 import Image from "next/image"
 import { useRef } from "react"
 
+import ScrollVelocityRaw from "@/components/reactbits/ScrollVelocity"
 import { Marquee } from "@/components/magicui/marquee"
 import { NumberTicker } from "@/components/magicui/number-ticker"
 import VariableProximityRaw from "@/components/reactbits/VariableProximity"
@@ -22,6 +23,8 @@ const ROWS = [
   { word: "Prąd", text: "Stacja ładowania 12V + 220V i przenośna toaleta.", src: "/photos/interior-lights.jpg", alt: "Wnętrze vana z lampkami" },
   { word: "Jazda", text: "Automat, 2.0 diesel, hak i do pięciu miejsc.", src: "/photos/mountain-grey-van.jpg", alt: "Van na górskiej drodze" },
 ] as const
+
+const ScrollVelocity = ScrollVelocityRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 export function NameDesign({ booked, demo }: DesignProps) {
   const wordmark = useRef<HTMLDivElement>(null)
@@ -84,6 +87,10 @@ export function NameDesign({ booked, demo }: DesignProps) {
           ))}
         </div>
       </section>
+
+      <div className="overflow-hidden py-8" aria-hidden="true">
+        <ScrollVelocity texts={["Wendrowan ✦ van na wyprawy ✦", "Oleśnica ✦ Wrocław ✦ cała Europa ✦"]} velocity={60} numCopies={6} className="nm-big whitespace-nowrap text-[clamp(56px,9vw,150px)] [text-transform:none]" />
+      </div>
 
       <section id="cennik" className="nm-ink mt-28 px-(--gutter) py-28 max-md:mt-16 max-md:py-16">
         <h2 className="nm-big m-0 text-[clamp(44px,6.6vw,104px)] [text-transform:none]">Cennik</h2>

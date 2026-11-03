@@ -4,12 +4,18 @@ import "./barebone.css"
 
 import Image from "next/image"
 
+import CurvedLoopRaw from "@/components/reactbits/CurvedLoop"
+import ShinyTextRaw from "@/components/reactbits/ShinyText"
+
 import { NumberTicker } from "@/components/magicui/number-ticker"
 import { CalendarNote, ContactForm, Faq } from "@/components/shared/blocks"
 import { BookingTool } from "@/components/ticket/booking"
 import type { DesignProps } from "@/designs/registry"
 import { REVIEWS } from "@/lib/content"
 import { PRICES } from "@/lib/pricing"
+
+const CurvedLoop = CurvedLoopRaw as unknown as React.ComponentType<Record<string, unknown>>
+const ShinyText = ShinyTextRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 const ENTRIES = [
   { title: "Śpi cztery osoby", text: "Cztery miejsca do spania, 2×2. Na trasie jedzie z wami do pięciu osób." },
@@ -46,12 +52,16 @@ export function BareboneDesign({ booked, demo }: DesignProps) {
         </p>
         <div className="flex flex-wrap items-center gap-8">
           <a href="#van" className="bb-btn">Zobacz vana</a>
-          <a href="#terminy" className="bb-link text-[20px] font-semibold">Sprawdź terminy</a>
+          <a href="#terminy" className="bb-link text-[20px] font-semibold"><ShinyText text="Sprawdź terminy" color="#2744f5" shineColor="#ffffff" speed={2.4} /></a>
         </div>
         <div className="bb-reveal relative mt-16 aspect-[21/9] overflow-hidden max-md:mt-10 max-md:aspect-[4/3]">
           <Image src="/photos/sunset-popup.jpg" alt="Van z podniesionym dachem na plaży o zachodzie słońca" fill priority sizes="100vw" className="hero-drift object-cover" style={{ objectPosition: "50% 78%" }} />
         </div>
       </header>
+
+      <div className="mt-16 max-md:mt-8" aria-hidden="true">
+        <CurvedLoop marqueeText="Wędruj vanem ✦ Wendrowan ✦ " speed={2} curveAmount={220} fontSize={72} fontWeight={800} color="#2744f5" interactive />
+      </div>
 
       <section id="van" className="mt-32 px-(--gutter) max-md:mt-20">
         <h2 className="bb-display rise text-[clamp(34px,5.4vw,88px)]">Dom, który jedzie z tobą.</h2>

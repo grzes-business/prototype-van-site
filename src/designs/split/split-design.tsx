@@ -5,6 +5,7 @@ import "./split.css"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
+import TrueFocusRaw from "@/components/reactbits/TrueFocus"
 import DecryptedTextRaw from "@/components/reactbits/DecryptedText"
 import { NumberTicker } from "@/components/magicui/number-ticker"
 import { CalendarNote, ContactForm, Faq } from "@/components/shared/blocks"
@@ -13,6 +14,7 @@ import { useTicket } from "@/components/ticket/ticket-context"
 import type { DesignProps } from "@/designs/registry"
 import { PRICES, zl } from "@/lib/pricing"
 
+const TrueFocus = TrueFocusRaw as unknown as React.ComponentType<Record<string, unknown>>
 const DecryptedText = DecryptedTextRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 const PARTS = [
@@ -118,6 +120,10 @@ export function SplitDesign({ booked, demo }: DesignProps) {
         </p>
         <a href="#van" className="sp-btn">Zobacz vana</a>
       </header>
+
+      <div className="px-(--gutter) pt-16 text-[clamp(32px,5vw,72px)] sp-display" aria-hidden="true">
+        <TrueFocus sentence="Spanie Kuchnia Miejsce Jazda" borderColor="#0f6b63" blurAmount={4} animationDuration={0.5} pauseBetweenAnimations={1} />
+      </div>
 
       <section id="van" className="grid grid-cols-2 gap-x-16 px-(--gutter) pt-16 max-lg:grid-cols-1 max-lg:gap-0 max-md:pt-8">
         <div className="sp-plan sticky top-6 self-start max-lg:hidden lg:h-[calc(100svh-48px)]">
