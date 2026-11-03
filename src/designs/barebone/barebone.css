@@ -1,0 +1,19 @@
+.d-barebone {
+  --font-sans: "Archivo Variable", Arial, sans-serif;
+  --font-display: "Archivo Variable", Arial, sans-serif;
+  --t-surface: #e2e0da; --t-fg: #14110f; --t-accent: #2744f5; --t-accent-fg: #ffffff;
+  --t-input: #ffffff; --t-border: #6f6c66; --t-muted: #cdd5ff; --t-paper: #ffffff; --t-ink: #14110f;
+  font-family: var(--font-sans); background: #ecebe7; color: #14110f;
+}
+.d-barebone .bb-display { font-weight: 800; font-stretch: 125%; letter-spacing: -.02em; line-height: 1; }
+.bb-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: #2744f5; color: #fff; font: 600 18px var(--font-sans); text-decoration: none; transition: transform .2s; }
+.bb-btn:hover { transform: translateY(-3px); }
+.bb-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; transition: text-decoration-thickness .2s; }
+.bb-link:hover { text-decoration-thickness: 3px; }
+.bb-table { width: 100%; border-collapse: collapse; font-size: 20px; }
+.bb-table th, .bb-table td { padding: 14px 0; text-align: left; border-bottom: 1px solid #14110f; font-weight: 400; }
+.bb-table td { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bb-table .bb-group { font-weight: 800; font-stretch: 125%; font-size: 24px; padding-top: 36px; border-bottom: 2px solid #14110f; }
+.bb-reveal { animation: bb-clip 1s cubic-bezier(.16,1,.3,1) .3s both; }
+@keyframes bb-clip { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0) } }
+@media (prefers-reduced-motion: reduce) { .bb-reveal { animation: none; clip-path: none; } .bb-btn, .bb-link { transition: none; } }
