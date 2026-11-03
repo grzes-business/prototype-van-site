@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useEffect, useRef } from "react"
 
 import { NumberTicker } from "@/components/magicui/number-ticker"
+import BlurTextRaw from "@/components/reactbits/BlurText"
 import VariableProximityRaw from "@/components/reactbits/VariableProximity"
 import { ContactForm, Faq, CalendarNote } from "@/components/shared/blocks"
 import { BookingTool } from "@/components/ticket/booking"
@@ -14,6 +15,8 @@ import type { DesignProps } from "@/designs/registry"
 import { PRICES, zl } from "@/lib/pricing"
 
 const VariableProximity = VariableProximityRaw as unknown as React.ComponentType<Record<string, unknown>>
+
+const BlurText = BlurTextRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 const MOMENTS = [
   { id: "rano", zone: "tz-dawn", title: "Rano kawa na trawie", text: "Kuchenka, lodówka, stolik i dwa krzesła jadą razem z tobą.", src: "/photos/kettle-grass.jpg", alt: "Czajnik na kuchence i kubek na trawie", pos: "50% 62%" },
@@ -109,7 +112,7 @@ export function TripDesign({ booked, demo }: DesignProps) {
         <section key={moment.id} id={moment.id} className={`${moment.zone} px-(--gutter) py-32 max-md:py-20`}>
           <div className={`grid grid-cols-2 items-center gap-16 max-lg:grid-cols-1 max-lg:gap-10 ${index % 2 ? "[&>div:first-child]:order-2 max-lg:[&>div:first-child]:order-none" : ""}`}>
             <div className="rise">
-              <h2 className="tz-display text-[clamp(48px,6.6vw,104px)]">{moment.title}</h2>
+              <h2 className="tz-display text-[clamp(48px,6.6vw,104px)]"><BlurText text={moment.title} delay={110} stepDuration={0.45} blur={8} distance={24} /></h2>
               <p className="mb-0 mt-6 max-w-[24em] text-[22px] leading-snug max-md:text-[20px]">{moment.text}</p>
             </div>
             <div className="tz-frame rise relative aspect-[5/4]">

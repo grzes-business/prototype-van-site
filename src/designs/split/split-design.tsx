@@ -5,12 +5,15 @@ import "./split.css"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
+import DecryptedTextRaw from "@/components/reactbits/DecryptedText"
 import { NumberTicker } from "@/components/magicui/number-ticker"
 import { CalendarNote, ContactForm, Faq } from "@/components/shared/blocks"
 import { BookingTool } from "@/components/ticket/booking"
 import { useTicket } from "@/components/ticket/ticket-context"
 import type { DesignProps } from "@/designs/registry"
 import { PRICES, zl } from "@/lib/pricing"
+
+const DecryptedText = DecryptedTextRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 const PARTS = [
   { id: "spanie", tab: "Spanie", title: "Spanie dla czterech", text: "Cztery miejsca do spania, 2×2, i rozwijana markiza. Na trasie jedzie z wami do pięciu osób.", src: "/photos/open-vans-forest.jpg", alt: "Otwarte klapy vanów z pościelą w lesie", pos: "50% 62%" },
@@ -134,7 +137,7 @@ export function SplitDesign({ booked, demo }: DesignProps) {
           {PARTS.map((part) => (
             <article key={part.id} data-part={part.id} ref={(node) => { blocks.current[part.id] = node }} className="sp-block flex flex-col justify-center py-14 max-lg:min-h-0 max-lg:py-12">
               <div className="mb-8 max-w-[520px] lg:hidden"><VanPlan active={part.id} /></div>
-              <h2 className="sp-display text-[clamp(32px,3.8vw,56px)]">{part.title}</h2>
+              <h2 className="sp-display text-[clamp(32px,3.8vw,56px)]"><DecryptedText text={part.title} animateOn="inViewHover" sequential revealDirection="start" speed={35} useOriginalCharsOnly /></h2>
               <p className="mb-6 mt-5 max-w-[28em] text-[21px] leading-snug">{part.text}</p>
               {part.id === "miejsce" ? (
                 <div className="mb-6">
