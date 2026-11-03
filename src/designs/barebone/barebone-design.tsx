@@ -5,7 +5,6 @@ import "./barebone.css"
 import Image from "next/image"
 
 import CurvedLoopRaw from "@/components/reactbits/CurvedLoop"
-import ShinyTextRaw from "@/components/reactbits/ShinyText"
 
 import { NumberTicker } from "@/components/magicui/number-ticker"
 import { CalendarNote, ContactForm, Faq } from "@/components/shared/blocks"
@@ -15,7 +14,6 @@ import { REVIEWS } from "@/lib/content"
 import { PRICES } from "@/lib/pricing"
 
 const CurvedLoop = CurvedLoopRaw as unknown as React.ComponentType<Record<string, unknown>>
-const ShinyText = ShinyTextRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 const ENTRIES = [
   { title: "Śpi cztery osoby", text: "Cztery miejsca do spania, 2×2. Na trasie jedzie z wami do pięciu osób." },
@@ -52,7 +50,7 @@ export function BareboneDesign({ booked, demo }: DesignProps) {
         </p>
         <div className="flex flex-wrap items-center gap-8">
           <a href="#van" className="bb-btn">Zobacz vana</a>
-          <a href="#terminy" className="bb-link text-[20px] font-semibold"><ShinyText text="Sprawdź terminy" color="#2744f5" shineColor="#ffffff" speed={2.4} /></a>
+          <a href="#terminy" className="bb-link text-[20px] font-semibold">Sprawdź terminy</a>
         </div>
         <div className="bb-reveal relative mt-16 aspect-[21/9] overflow-hidden max-md:mt-10 max-md:aspect-[4/3]">
           <Image src="/photos/sunset-popup.jpg" alt="Van z podniesionym dachem na plaży o zachodzie słońca" fill priority sizes="100vw" className="hero-drift object-cover" style={{ objectPosition: "50% 78%" }} />

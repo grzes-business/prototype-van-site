@@ -7,7 +7,6 @@ import { useEffect, useRef } from "react"
 
 import { NumberTicker } from "@/components/magicui/number-ticker"
 import BlurTextRaw from "@/components/reactbits/BlurText"
-import ShinyTextRaw from "@/components/reactbits/ShinyText"
 import VariableProximityRaw from "@/components/reactbits/VariableProximity"
 import { ContactForm, Faq, CalendarNote } from "@/components/shared/blocks"
 import { BookingTool } from "@/components/ticket/booking"
@@ -17,7 +16,6 @@ import { PRICES, zl } from "@/lib/pricing"
 
 const VariableProximity = VariableProximityRaw as unknown as React.ComponentType<Record<string, unknown>>
 
-const ShinyText = ShinyTextRaw as unknown as React.ComponentType<Record<string, unknown>>
 const BlurText = BlurTextRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 const MOMENTS = [
@@ -100,7 +98,7 @@ export function TripDesign({ booked, demo }: DesignProps) {
               </h1>
             </div>
             <p className="mb-8 mt-8 max-w-[30em] text-[22px] leading-snug max-md:text-[20px]">
-              <ShinyText text="Podnoszony dach, cztery miejsca do spania i droga, którą wybierasz sam." color="#2c3e63" shineColor="#e7c27a" speed={3} />
+              Podnoszony dach, cztery miejsca do spania i droga, którą wybierasz sam.
             </p>
             <a href="#rano" className="tz-btn">Zobacz, jak to wygląda</a>
           </div>
