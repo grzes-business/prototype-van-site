@@ -6,11 +6,14 @@ import Image from "next/image"
 import { useEffect, useRef } from "react"
 
 import { NumberTicker } from "@/components/magicui/number-ticker"
+import VariableProximityRaw from "@/components/reactbits/VariableProximity"
 import { ContactForm, Faq, CalendarNote } from "@/components/shared/blocks"
 import { BookingTool } from "@/components/ticket/booking"
 import { useTicket } from "@/components/ticket/ticket-context"
 import type { DesignProps } from "@/designs/registry"
 import { PRICES, zl } from "@/lib/pricing"
+
+const VariableProximity = VariableProximityRaw as unknown as React.ComponentType<Record<string, unknown>>
 
 const MOMENTS = [
   { id: "rano", zone: "tz-dawn", title: "Rano kawa na trawie", text: "Kuchenka, lodówka, stolik i dwa krzesła jadą razem z tobą.", src: "/photos/kettle-grass.jpg", alt: "Czajnik na kuchence i kubek na trawie", pos: "50% 62%" },
@@ -52,6 +55,7 @@ function useDayClock() {
 }
 
 export function TripDesign({ booked, demo }: DesignProps) {
+  const headline = useRef<HTMLDivElement>(null)
   const { extras, toggleExtra } = useTicket()
   const { clock, label } = useDayClock()
 
@@ -70,10 +74,26 @@ export function TripDesign({ booked, demo }: DesignProps) {
         </nav>
         <div className="mt-16 grid grid-cols-[minmax(0,7fr)_minmax(0,4fr)] items-end gap-12 max-lg:grid-cols-1 max-md:mt-10">
           <div>
-            <h1 className="tz-display text-[clamp(46px,8.3vw,128px)] whitespace-nowrap">
-              <span className="mask-line"><span>Wendrowan,</span></span>
-              <span className="mask-line"><span className="delay">van na wyprawy.</span></span>
-            </h1>
+            <div ref={headline}>
+              <h1 className="tz-display text-[clamp(46px,8.3vw,128px)] whitespace-nowrap">
+                {["Wendrowan,", "van na wyprawy."].map((line) => (
+                  <span key={line} className="mask-line">
+                    <span>
+                      <VariableProximity
+                        label={line}
+                        containerRef={headline}
+                        fromFontVariationSettings="'wght' 400"
+                        toFontVariationSettings="'wght' 700"
+                        radius={160}
+                        falloff="gaussian"
+                        idleWave
+                        style={{ fontFamily: "var(--font-display)" }}
+                      />
+                    </span>
+                  </span>
+                ))}
+              </h1>
+            </div>
             <p className="mb-8 mt-8 max-w-[30em] text-[22px] leading-snug max-md:text-[20px]">
               Podnoszony dach, cztery miejsca do spania i droga, którą wybierasz sam.
             </p>
