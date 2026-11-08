@@ -45,7 +45,7 @@ export function DesignRoot(props: DesignProps) {
       <div key={current.id} data-design={current.id} className="design-enter">
         <Design {...props} />
       </div>
-      <div data-ui className="picker fixed bottom-4 left-4 z-50">
+      {DESIGNS.length > 1 ? <div data-ui className="picker fixed bottom-4 left-4 z-50">
         {open ? (
           <ul role="listbox" aria-label="Wybierz projekt" className="picker-list m-0 mb-2 list-none p-0">
             {DESIGNS.map((design) => (
@@ -61,7 +61,7 @@ export function DesignRoot(props: DesignProps) {
         <button type="button" className="picker-toggle" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
           Projekt: {current.label}
         </button>
-      </div>
+      </div> : null}
     </TicketProvider>
   )
 }

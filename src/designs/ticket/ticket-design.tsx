@@ -8,6 +8,7 @@ import { Pricing } from "@/components/ticket/pricing"
 import { Questions } from "@/components/ticket/questions"
 import { FloatingStub } from "@/components/ticket/stub"
 import { Opening, Van } from "@/components/ticket/van"
+import { VanSpin } from "@/components/ticket/van-spin"
 import type { DesignProps } from "@/designs/registry"
 import { REVIEWS } from "@/lib/content"
 
@@ -26,6 +27,7 @@ export function TicketDesign({ booked, demo }: DesignProps) {
           </Marquee>
         </div>
         <Opening />
+        <VanSpin />
         <Van />
         <Pricing />
         {REVIEWS.length > 0 && (
