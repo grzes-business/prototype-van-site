@@ -7,13 +7,15 @@ import { PRICES } from "@/lib/pricing"
 /**
  * The van film, scrubbed by scroll.
  *
- * One transparent render (955 frames at 30 fps): a full turn, the roof lifting, a turn to the back, the bike rack
+ * One render (955 frames at 30 fps): a full turn, the roof lifting, a turn to the back, the bike rack
  * appearing, a turn to the awning side, the awning unrolling and finally the tent. Scroll position maps to the
  * video's currentTime, eased so slow scrolling doesn't stutter between frames.
  *
- * Two files, because no single format carries alpha everywhere: VP9 alpha WebM for Chromium and Firefox,
- * HEVC alpha MOV for Safari (all of iOS is WebKit). Both are encoded with a keyframe every 6 frames, which is
- * what makes seeking cheap enough to scrub; a normal web encode (a keyframe every few seconds) can't.
+ * One opaque H.264 MP4 for every browser, with the section's background colour (#0f1f10, `forest`) baked in. Chrome and
+ * Firefox decode it in hardware and seek in ~5 ms; the transparent VP9 alpha WebM it replaced took ~9 ms and Safari's
+ * HEVC alpha came out blocky. Encoded with a keyframe every 6 frames, which is what makes seeking cheap enough to
+ * scrub; a normal web encode (a keyframe every few seconds) can't. If the section's background colour changes,
+ * re-render the MP4 (public/van-video/van.webm is the transparent version, kept for that case).
  *
  * The captions are aligned to the render's own timeline (frame numbers at 30 fps, see CHAPTERS).
  */
@@ -31,13 +33,7 @@ const CHAPTERS = [
 
 const STARTS = CHAPTERS.map((chapter) => chapter.from / FRAMES)
 
-/** Safari and every iOS browser are WebKit: they play the HEVC alpha file and not VP9 alpha. */
-function pickSource() {
-  const ua = navigator.userAgent
-  const webkit = /safari/i.test(ua) && !/chrome|chromium|crios|fxios|edg|android/i.test(ua)
-  const ios = /iphone|ipad|ipod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
-  return webkit || ios ? "/van-video/van.mov" : "/van-video/van.webm"
-}
+const SRC = "/van-video/van.mp4"
 
 export function VanSpin() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -120,12 +116,12 @@ export function VanSpin() {
       if (!raf && visible) raf = requestAnimationFrame(tick)
     }
 
-    // the right file for this browser, only once the section is a couple of screens away: it's ~8 MB
+    // the film, only once the section is a couple of screens away: it's ~8 MB
     // and scrubbing needs all of it, so it shouldn't compete with the hero at page load
     const near = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return
       near.disconnect()
-      video.src = pickSource()
+      video.src = SRC
       video.load()
     }, { rootMargin: "250% 0px" })
     near.observe(section)
@@ -192,7 +188,7 @@ export function VanSpin() {
           disablePictureInPicture
           aria-label="Biały van z podnoszonym dachem: obrót, otwarcie dachu, bagażnik na rowery, markiza i przedsionek"
           role="img"
-          className="absolute inset-0 -z-10 h-full w-full object-contain"
+          className="van-film absolute left-1/2 top-1/2 -z-10 aspect-video w-[min(100%,calc(100svh*16/9))] -translate-x-1/2 -translate-y-1/2"
         />
         <div className="min-h-0 flex-1" />
 
